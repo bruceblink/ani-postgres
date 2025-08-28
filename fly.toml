@@ -9,7 +9,7 @@ primary_region = 'hkg'
 [build]
 
 [[mounts]]
-  source = 'data'
+  source = 'pg_data'
   destination = '/var/lib/postgresql/data'
 
 [http_service]
