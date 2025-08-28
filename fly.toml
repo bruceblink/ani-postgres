@@ -1,17 +1,18 @@
-app = 'ani-postgres'
-primary_region = 'hkg'
+# fly.toml for ani-postgres
+app = "ani-postgres"
+primary_region = "hkg"
 
 [build]
   image = "postgres:15"
 
 [mounts]
-  source = 'pg_data'
-  destination = '/var/lib/postgresql/data'
+  source = "pg_data"
+  destination = "/var/lib/postgresql"  # 挂载卷到根目录
 
 [env]
+  PGDATA = "/var/lib/postgresql/data/db"  # 数据库实际目录，避免 lost+found 问题
   POSTGRES_USER = "postgres"
   POSTGRES_DB = "newsletter"
-
 [[services]]
   protocol = "tcp"
   internal_port = 5432
@@ -26,6 +27,6 @@ primary_region = 'hkg'
     restart_limit = 0
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
+  memory = "1gb"
+  cpu_kind = "shared"
   cpus = 1
