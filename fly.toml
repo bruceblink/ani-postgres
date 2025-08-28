@@ -7,13 +7,16 @@ primary_region = "hkg"
 
 [mounts]
   source = "pg_data"
-  destination = "/var/lib/postgresql/data"  # 挂载卷到根目录
+  destination = "/var/lib/postgresql/data/db"  # 挂载卷到根目录
 
 [env]
-  PGDATA = "/var/lib/postgresql/data/db"  # 数据库实际目录，避免 lost+found 问题
+  # 数据库初始化目录，避免 lost+found 问题
+  PGDATA = "/var/lib/postgresql/data/db"
   POSTGRES_USER = "postgres"
   POSTGRES_DB = "newsletter"
-  
+  # 不在这里写密码，使用 fly secrets 设置
+  # POSTGRES_PASSWORD = "your-strong-password"
+
 [[services]]
   protocol = "tcp"
   internal_port = 5432
