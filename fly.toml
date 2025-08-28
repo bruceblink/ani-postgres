@@ -1,24 +1,29 @@
-# fly.toml app configuration file generated for ani-postgres on 2025-08-28T13:27:31+08:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'ani-postgres'
 primary_region = 'hkg'
 
 [build]
+  image = "postgres:15"
 
-[[mounts]]
+[mounts]
   source = 'pg_data'
   destination = '/var/lib/postgresql/data'
 
-[http_service]
+[env]
+  POSTGRES_USER = "postgres"
+  POSTGRES_DB = "newsletter"
+
+[[services]]
+  protocol = "tcp"
   internal_port = 5432
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+
+  [[services.ports]]
+    port = 5432
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "30s"
+    restart_limit = 0
 
 [[vm]]
   memory = '1gb'
