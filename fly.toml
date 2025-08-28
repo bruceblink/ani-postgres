@@ -14,6 +14,7 @@ primary_region = "hkg"
   PGDATA = "/var/lib/postgresql/data"
   POSTGRES_USER = "postgres"
   POSTGRES_DB = "newsletter"
+  TZ = "Asia/Shanghai"  
   # 密码使用 secrets 设置，不在 toml 中写
   # POSTGRES_PASSWORD = "your-strong-password"
 
