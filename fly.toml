@@ -5,16 +5,16 @@ primary_region = "hkg"
 [build]
   image = "postgres:15"
 
-[mounts]
-  source = "pg_data"
-  destination = "/var/lib/postgresql/data/db"  # 挂载卷到根目录
+# 不挂载卷
+#[mounts]
+#  source = "pg_data"
+#  destination = "/var/lib/postgresql/data/db"
 
 [env]
-  # 数据库初始化目录，避免 lost+found 问题
-  PGDATA = "/var/lib/postgresql/data/db"
+  PGDATA = "/var/lib/postgresql/data"
   POSTGRES_USER = "postgres"
   POSTGRES_DB = "newsletter"
-  # 不在这里写密码，使用 fly secrets 设置
+  # 密码使用 secrets 设置，不在 toml 中写
   # POSTGRES_PASSWORD = "your-strong-password"
 
 [[services]]
